@@ -1,70 +1,44 @@
 // event listener to respond to "Show another quote" button clicks
 // when user clicks anywhere on the button, the "printQuote" function is called
 document.getElementById('loadQuote').addEventListener("click", printQuote, false);
-
-var quotes =[
-{
-	quote : 'You can do anything but not everything.',
-	source :'David Allen',
-	citation:'Making It All Work',
-	year:2009
-},
-{
-	quote : 'May you live all the days of your life.',
-	source :'Jonathan Swift'
-},
-{
-	quote : 'Life is a flower of which love is the honey.',
-	source :'Victor Hugo'
-},
-{
-	quote : 'You complete me.',
-	source :'Jerry Maguire',
-	year : 1996
-},
-{
-	quote : 'If you wear a dress and have an animal sidekick, you\'re a princess.',
-	source :'Maui',
-	citation : 'Moana'
-}
-];
+//created an empty array to store the first 5 different quotes
 var indexes =[];
 function getRandomQuote(){
 	var max = quotes.length-1;
 	var min = 0;
-	var rindex = Math.floor(Math.random()*(max-min+1)+min);
+	//generate the random index in the array
+	var rindex = Math.floor(Math.random() * (max - min + 1)) + min;
 	var quote;
-	if (indexes.length !== quotes.length){
-		while (true)
-		{
-			if (indexes.indexOf(rindex)>-1){
-				indexes.push(rindex);
-				quote = quotes[rindex];
-				break;
-			}
-			else
+	//
+	if (indexes.length < quotes.length){
+		if (indexes.indexOf(rindex)===-1){
+			indexes.push(rindex);
+		}
+		else{
+			do 
 			{
-				rindex = Math.floor(Math.random()*(max-min+1)+min);
-			}
-			
+			  rindex = Math.floor(Math.random()*(max-min+1)+min);
+
+			}while(indexes.indexOf(rindex) > -1)
+			indexes.push(rindex);
 		}		
 	}
-	else{
-		indexes.push(rindex);
-		quote = quotes[rindex];
-	}
-
-
+	quote = quotes[rindex];
 	console.log(rindex);
 	return quote;
 
 }
-
-
+//generate random rgb value, return rgb(aa,bb,cc)
+function generateRandomColor(){
+	var red = Math.floor(Math.random() * (255 - 0 + 1));
+	var green = Math.floor(Math.random() * (255 - 0 + 1));
+	var blue = Math.floor(Math.random() * (255 - 0 + 1));
+	return 'rgb('+red+','+green+','+blue+')'
+}
 
 function printQuote(){
-	console.log(getRandomQuote());
 	var quoteShow = getRandomQuote();
+	console.log(quoteShow.quote);
 	var html;
 	html = '<p class="quote"> ' + quoteShow.quote+'</p><p class="source"> ' + quoteShow.source;
 	if (quoteShow.citation !== undefined){
@@ -75,6 +49,10 @@ function printQuote(){
 	}
 	html += '</p>';
 	document.getElementById('quote-box').innerHTML = html;
+	document.body.style.backgroundColor = generateRandomColor();
 }
+window.setInterval(printQuote, 5000);
 
-//printQuote();
+
+
+
