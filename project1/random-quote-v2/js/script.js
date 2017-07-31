@@ -9,7 +9,7 @@ function getRandomQuote(){
 	//generate the random index in the array
 	var rindex = Math.floor(Math.random() * (max - min + 1)) + min;
 	var quote;
-	//
+	//make sure the first 5 quotes are unique quotes。
 	if (indexes.length < quotes.length){
 		if (indexes.indexOf(rindex)===-1){
 			indexes.push(rindex);
@@ -24,7 +24,6 @@ function getRandomQuote(){
 		}		
 	}
 	quote = quotes[rindex];
-	console.log(rindex);
 	return quote;
 
 }
@@ -41,6 +40,7 @@ function printQuote(){
 	console.log(quoteShow.quote);
 	var html;
 	html = '<p class="quote"> ' + quoteShow.quote+'</p><p class="source"> ' + quoteShow.source;
+	//check if citation/year exists in the object
 	if (quoteShow.citation !== undefined){
 		html += '<span class="citation"> ' + quoteShow.citation +' </span>';
 	}
@@ -49,8 +49,10 @@ function printQuote(){
 	}
 	html += '</p>';
 	document.getElementById('quote-box').innerHTML = html;
+	//change the backgroud color for body
 	document.body.style.backgroundColor = generateRandomColor();
 }
+printQuote();
 window.setInterval(printQuote, 5000);
 
 
