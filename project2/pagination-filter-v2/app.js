@@ -29,8 +29,13 @@ function showPage(page,students) {
 //generage pages on the number of students
 //add class active to the page you click on
 function appendPageLinks(students) {
-	let pages = Math.ceil(students.length/10);      
-	$('.pagination').empty();
+	let pages = Math.ceil(students.length/10);  
+
+	if($('.pagination').length==0){
+		$('.page').append('<div class="pagination"></div>');
+	}  
+
+	
 	if (pages > 1)
 
 	{	
@@ -49,6 +54,9 @@ function appendPageLinks(students) {
 		    $(event.target).addClass('active');
 		    showPage(parseInt(event.target.textContent),students);
 	    });
+	}
+	else{
+		$('.pagination').empty();
 	}
 
 }
@@ -86,8 +94,4 @@ $(document).on('click', '.student-search button', function(){
 	}
 });
 
-
-$('.student-search button').click(()=>{
-
-});
 
