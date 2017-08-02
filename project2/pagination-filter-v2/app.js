@@ -4,7 +4,13 @@ const students = $('.student-list li');
 $(document).ready(function() {
 	hideAllStudents(students)
 	appendPageLinks(students);
+	createSearchBox();
 });
+
+function createSearchBox(){
+	let text = '<div class="student-search"><input placeholder="Search for students..."><button>Search</button></div>';
+	$(text).insertAfter('h2');
+}
 //hide all students list from html page
 function hideAllStudents(students){
 	students.each((index) =>{
@@ -23,10 +29,12 @@ function showPage(page,students) {
 //generage pages on the number of students
 //add class active to the page you click on
 function appendPageLinks(students) {
-	let pages = Math.ceil(students.length/10);
-	$('.pagination ul').empty();
+	let pages = Math.ceil(students.length/10);      
+	$('.pagination').empty();
 	if (pages > 1)
+
 	{	
+		$('.pagination').append('<ul></ul>');
 		for (let i=1;i<=pages;i=i+1)
 		{
 			if (i === 1) {text = '<li><a  href="#" class="active">' + i + '</a></li>';}
@@ -45,8 +53,9 @@ function appendPageLinks(students) {
 
 }
 //search box
-$('.student-search button').on('click',()=>{
-	let student_search = $('.student-search input')[0].value.toLowerCase();
+
+$(document).on('click', '.student-search button', function(){
+    let student_search = $('.student-search input')[0].value.toLowerCase();
 	let names = $('.student-list li h3');
 	//when search box is not empty
 	if (student_search !== ""){
@@ -75,5 +84,10 @@ $('.student-search button').on('click',()=>{
 	else{
 		appendPageLinks(students);
 	}
+});
+
+
+$('.student-search button').click(()=>{
+
 });
 
