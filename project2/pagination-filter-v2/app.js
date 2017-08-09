@@ -6,7 +6,7 @@ $(document).ready(function() {
 	appendPageLinks(students);
 	createSearchBox();
 });
-
+//create searchbox dynamically
 function createSearchBox(){
 	let text = '<div class="student-search"><input placeholder="Search for students..."><button>Search</button></div>';
 	$(text).insertAfter('h2');
@@ -31,13 +31,11 @@ function showPage(page,students) {
 function appendPageLinks(students) {
 	let pages = Math.ceil(students.length/10);  
 
-	if($('.pagination').length==0){
+	if($('.pagination').length===0){
 		$('.page').append('<div class="pagination"></div>');
 	}  
-
 	
 	if (pages > 1)
-
 	{	
 		$('.pagination').append('<ul></ul>');
 		for (let i=1;i<=pages;i=i+1)
